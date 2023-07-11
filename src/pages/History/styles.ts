@@ -5,6 +5,7 @@ export const HistoryContainer = styled.main`
   padding: 3.5rem;
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   h1 {
     font-size: 1.5rem;
@@ -29,6 +30,8 @@ export const HistoryList = styled.div`
       color: ${(props) => props.theme['gray-100']};
       font-size: 0.875rem;
       line-height: 1.6;
+      position: sticky;
+      top: 0;
 
       &:first-child {
         border-top-left-radius: 8px;

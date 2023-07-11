@@ -23,4 +23,27 @@ body, input,textarea,button{
   font-weight: 400;
   font-size: 1rem;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: ${(props) => props.theme['green-500']} ${(props) =>
+  props.theme['gray-600']};
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 11px;
+}
+
+*::-webkit-scrollbar-track {
+  background: ${(props) => props.theme['gray-600']};
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme['green-500']};
+  border-radius: 10px;
+}
 `

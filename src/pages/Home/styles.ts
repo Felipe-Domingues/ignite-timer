@@ -50,3 +50,13 @@ export const StopCountdownButton = styled(BaseCountdownButton)`
     background: ${(props) => props.theme['red-700']};
   }
 `
+export const ActiveCycleInfoText = styled.p`
+  font-weight: bold;
+  color: ${(props) => props.theme['gray-100']};
+  font-size: 1.2rem;
+`
+
+export const ActiveCycleInfoMinutesAmountTex = styled.span`
+  color: ${(props) => props.theme['green-500']};
+  opacity: 0.7;
+`

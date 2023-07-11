@@ -5,6 +5,8 @@ import { Countdown } from './components/Countdown'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import {
+  ActiveCycleInfoMinutesAmountTex,
+  ActiveCycleInfoText,
   HomeContainer,
   StartCountdownButton,
   StopCountdownButton,
@@ -16,7 +18,7 @@ const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(5, 'Informe a tarefa'),
   minutesAmount: zod
     .number()
-    .min(1, 'O ciclo precisa ser de no mínimo 60 minutos.')
+    .min(5, 'O ciclo precisa ser de no mínimo 5 minutos.')
     .max(60, 'O ciclo precisa ser de no máximo 60 minutos.'),
 })
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
@@ -37,6 +39,10 @@ export function Home() {
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     createNewCycle(data)
+  }
+
+  function handleInterruptCurrentCycle() {
+    interruptCurrentCycle()
     reset()
   }
 
@@ -46,13 +52,26 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-        <FormProvider {...newCycleForm}>
-          <NewCycleForm />
-        </FormProvider>
+        {activeCycle ? (
+          <ActiveCycleInfoText>
+            Trabalhando em {activeCycle.task}{' '}
+            <ActiveCycleInfoMinutesAmountTex>
+              (Tempo total: {activeCycle.minutesAmount} minutos)
+            </ActiveCycleInfoMinutesAmountTex>
+          </ActiveCycleInfoText>
+        ) : (
+          <FormProvider {...newCycleForm}>
+            <NewCycleForm />
+          </FormProvider>
+        )}
+
         <Countdown />
 
         {activeCycle ? (
-          <StopCountdownButton onClick={interruptCurrentCycle} type="button">
+          <StopCountdownButton
+            onClick={handleInterruptCurrentCycle}
+            type="button"
+          >
             <HandPalm size={24} /> Interromper
           </StopCountdownButton>
         ) : (
